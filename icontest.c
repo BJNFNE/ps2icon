@@ -42,20 +42,20 @@ int main(int argc, char **argv)
 
 	if (argc != 2)
 	{
-		printf("usage: %s <file>\n", *argv);
+		printf("Usage: %s <file>\n", *argv);
 		return 1;
 	}
 
 	/*
 	 * Open an .icn icon file for testing, use fstat() to get filesize and malloc()
-	 * a buffer for it.  Read the whole file into the buffer and close the file.
+	 * a buffer for it. Read the whole file into the buffer and close the file.
 	 */
 	argv++;
 	printf("Opening file: %s\n", *argv);
 	lFile = open(*argv, O_RDONLY, NULL);
 	if (lFile < 0)
 	{
-		perror("error");
+		perror("ERROR");
 		return 1;
 	}
 
@@ -63,7 +63,7 @@ int main(int argc, char **argv)
 
 	if ((0 == lFs.st_size))
 	{
-		printf("error: File has zero size\n");
+		printf("ERROR: File has zero size\n");
 		return 1;
 	}
 
@@ -76,13 +76,13 @@ int main(int argc, char **argv)
 	 */
 	if ((0x0100 != (*(int32_t *) lIconData)) && (0x010000 != (*(int32_t *) lIconData)))
 	{
-		printf("error: Not an .icn file\n");
+		printf("ERROR: Not an .icn file\n");
 		return 1;
 	}
 
 	/*
 	 * Initialize our icon in a IconPtr struct so that we can access icon data
-	 * more freely by using struct pointers.  After initializing we throw away
+	 * more freely by using struct pointers. After initializing we throw away
 	 * the icon buffer we allocated earlier.
 	 */
 	lIcon = iconInit(lIconData);
